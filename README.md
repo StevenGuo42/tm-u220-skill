@@ -43,3 +43,7 @@ python skills/printing-on-epson-tm-u220/scripts/tmu220.py id <printer-ip>
 python skills/printing-on-epson-tm-u220/scripts/tmu220.py demo <printer-ip>
 python skills/printing-on-epson-tm-u220/scripts/full_demo.py <printer-ip>
 ```
+
+## License
+
+MIT, see [LICENSE](LICENSE).

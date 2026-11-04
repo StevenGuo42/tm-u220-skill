@@ -8,5 +8,6 @@
   },
   "homepage": "https://github.com/StevenGuo42/tm-u220-skill",
   "repository": "https://github.com/StevenGuo42/tm-u220-skill",
+  "license": "MIT",
   "keywords": ["epson", "tm-u220", "esc-pos", "receipt-printer", "dot-matrix", "impact-printer"]
 }
