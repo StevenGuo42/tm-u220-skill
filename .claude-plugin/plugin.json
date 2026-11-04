@@ -1,0 +1,12 @@
+{
+  "name": "tm-u220",
+  "version": "1.0.0",
+  "description": "Programming the Epson TM-U220 9-pin dot matrix receipt printer over ESC/POS: text styles, red, images, charts and stored logos, checked on a real printer.",
+  "author": {
+    "name": "StevenGuo42",
+    "url": "https://github.com/StevenGuo42"
+  },
+  "homepage": "https://github.com/StevenGuo42/tm-u220-skill",
+  "repository": "https://github.com/StevenGuo42/tm-u220-skill",
+  "keywords": ["epson", "tm-u220", "esc-pos", "receipt-printer", "dot-matrix", "impact-printer"]
+}

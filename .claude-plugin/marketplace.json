@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "tm-u220-skill",
+  "description": "Skill for programming the Epson TM-U220 dot matrix receipt printer",
+  "owner": {
+    "name": "StevenGuo42",
+    "url": "https://github.com/StevenGuo42"
+  },
+  "plugins": [
+    {
+      "name": "tm-u220",
+      "description": "Programming the Epson TM-U220 9-pin dot matrix receipt printer over ESC/POS: text styles, red, images, charts and stored logos.",
+      "source": "./",
+      "category": "development"
+    }
+  ]
+}

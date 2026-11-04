@@ -16,7 +16,20 @@ text styles, red printing, images and charts that come out right on a dot matrix
 
 ## Install
 
-Copy the skill folder into your personal skills:
+In Claude Code, as a plugin:
+
+```
+/plugin install tm-u220 --marketplace StevenGuo42/tm-u220-skill
+```
+
+On Claude Code older than 2.1.275, add the marketplace first:
+
+```
+/plugin marketplace add StevenGuo42/tm-u220-skill
+/plugin install tm-u220@tm-u220-skill
+```
+
+Or copy the skill folder into your personal skills:
 
 ```sh
 cp -r skills/printing-on-epson-tm-u220 ~/.claude/skills/
