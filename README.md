@@ -44,6 +44,11 @@ python skills/printing-on-epson-tm-u220/scripts/tmu220.py demo <printer-ip>
 python skills/printing-on-epson-tm-u220/scripts/full_demo.py <printer-ip>
 ```
 
+## Data and network
+
+The scripts send print jobs only to the printer address you give them, over raw TCP port 9100
+on your own network. Nothing goes to any other service, and nothing is stored or collected.
+
 ## License
 
 MIT, see [LICENSE](LICENSE).
