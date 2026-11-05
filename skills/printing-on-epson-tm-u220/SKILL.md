@@ -37,6 +37,7 @@ Run `python scripts/tmu220.py selftest` after changing it, and `python scripts/t
 | Cut | `GS V 66 0` after feeding | `ESC i` |
 | Stop a running job | `10 14 08 01 03 14 01 06 02 08` on a new connection; data still in the network card prints anyway | |
 | Inverse text | not supported | `GS B` (prints normal) |
+| Page reads upside down (printer mounted vertically) | `upside_down(blocks)`: `ESC {` plus lines sent last-first; images as `Canvas.flipped_image()` | `ESC {` alone (lines stay in the wrong order) |
 
 ## Shading (verified side by side on the printer)
 
@@ -61,6 +62,17 @@ p.send(ip, p.INIT + p.nv_print(1) + p.CUT)  # in any later job
 ```
 
 Print with `FS p n 1` (`nv_print`): `m=0` comes out half as wide, probably because stored columns are half-dot positions. `m=2` and `m=3` gave no double height.
+
+## Upside-down pages
+
+`ESC {` rotates each line in place, but the first line printed is still the first out of the printer, so the job has to be sent last line first. Build it as a list in reading order, one line per block. Each block must restore any alignment or colour it sets:
+
+```python
+blocks = [p.CENTER + p.size('REPORT', True, True) + p.LEFT, logo.flipped_image(), p.text('last line')]
+p.send(ip, p.INIT + p.upside_down(blocks) + p.CUT)
+```
+
+Text styles, red and `inline()` swatches all flip with the mode. Use a full-width canvas with `flipped_image()`.
 
 ## Common mistakes
 

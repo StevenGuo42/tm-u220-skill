@@ -39,6 +39,7 @@ documentation, or listed under "Not tried yet".
 | Feed n/144" | `1B 4A n` | Verified: `ESC J 1` offsets a second pass by half a dot (fine mode) |
 | Cancel Kanji mode | `1C 2E` | Verified: `caf\x82 ok` printed `café ok` with it, `cafok` without. Needed for single-byte text above 0x7F on Chinese models |
 | Clear buffer (real time) | `10 14 08 01 03 14 01 06 02 08` | Verified on a second connection: stopped a running job early and discarded the waiting lines. The cut at the end of the job still ran, probably because it was still in the network card |
+| Upside-down mode | `1B 7B 01` on, `1B 7B 00` off | Verified 2026-11-05 with lines sent last-first: bold, underline, red, double size and all three alignments read correctly when rotated (`ESC a` left stays on the reader's left). `ESC *` bands also rotate if sent last-first, including inline swatches. A full-width image with pixels rotated on the computer and the mode off looks the same. The whole full demo also printed correctly this way, including fine-mode images, Font A, accented and GB18030 text |
 | Store NV image | `1C 71 n` then per image `xL xH yL yH d...`: (x × 8) columns, (y × 8) rows, column order, top dot = MSB. **Writes NV memory, replaces all stored images** | Verified with 1 image, 120 × 48, in its own job, then a 15 s wait |
 | Print NV image | `1C 70 n m` | Verified: `m=1` is the same size as `ESC *`, `m=0` half as wide. `m=2` and `m=3` gave no double height. Follows `ESC a` alignment; text after it prints normally. An empty slot prints nothing |
 
@@ -81,6 +82,8 @@ by Epson but works on this printer.
 - `FS q` with more than one image.
 - Whether a shorter wait than 15 s after `FS q` is safe, and whether NV images need `ESC U 1`.
 - Reading a stored logo back after a power cycle.
+- Upside-down pages with `flipped_image()` on canvases narrower than full width, or NV images.
+- Printing with the printer standing vertically. The guide says to install it horizontally, or on a wall with the WH-10 bracket (Type B or D), which also involves moving the roll-paper detector (Appendix B).
 
 ## Sources
 

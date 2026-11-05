@@ -45,6 +45,13 @@ def red(data):
     return ESC + b'r\x01' + data + ESC + b'r\x00'
 
 
+def upside_down(blocks):
+    """Rotates a whole page 180 degrees, for a printer mounted so its output reads upside down.
+    blocks: a list in reading order, one line each, and each must restore any alignment or
+    colour it sets, because they print last-first. Images go in as Canvas.flipped_image()."""
+    return ESC + b'{\x01' + b''.join(reversed(blocks)) + ESC + b'{\x00'
+
+
 # ---------------------------------------------------------------- dithering
 
 def _blue_noise(n=32, sigma=1.5, seed=1):
@@ -171,6 +178,14 @@ class Canvas:
                 out += band._band(0) + ESC + b'J' + feed  # ESC J: print, feed n/144"
         return out + ESC + b'U\x00'
 
+    def flipped_image(self, fine=False):
+        """bit_image() rotated 180 degrees, as one block for upside_down(). ESC { is off during
+        the image because the pixels are already rotated, so no bands or passes need reordering."""
+        # shortcut: only full-width canvases were printed; a narrower one lands on the reader's right, pad it to WIDTH.
+        c = Canvas(self.w, self.h)
+        c.px = self.px[::-1]
+        return ESC + b'{\x00' + c.bit_image(fine) + ESC + b'{\x01'
+
     def inline(self):
         """An 8-dot-high canvas as one band without a line feed, to put inside a text line
         (legend swatches, bars with labels). Wrap the lines in ESC U 1 / ESC U 0."""
@@ -281,6 +296,12 @@ def selftest():
     assert nv_print(2) == FS + b'p\x02\x01\n'
     assert size('x', True, True).startswith(ESC + b'U\x01' + ESC + b'!\x31')
     assert size('x', double_width=True).startswith(ESC + b'!\x21')
+    assert upside_down([b'first', b'last']) == ESC + b'{\x01lastfirst' + ESC + b'{\x00'
+    corner = Canvas(8, 8)
+    corner.set(0, 0)
+    flip = corner.flipped_image()
+    assert flip.startswith(ESC + b'{\x00') and flip.endswith(ESC + b'{\x01')
+    assert bytes(7) + b'\x01' in flip and corner.px[0] == 1, 'top-left dot must move to bottom-right'
     data = demo()
     assert GS + b'v0' not in data and GS + b'!' not in data, 'TM-U220 ignores GS v 0 and GS !'
     print(f'selftest OK (demo receipt {len(data)} bytes)')
