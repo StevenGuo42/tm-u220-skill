@@ -12,7 +12,7 @@ WIDTH = 200    # dots per line on 76 mm paper (69.5 mm: 180, 57.5 mm: 150)
 ASPECT = 1.11  # one dot row is ~11% taller than one dot column is wide: scale y by this for circles
 ASPECT_FINE = ASPECT / 2  # rows in bit_image(fine=True) are half as far apart
 ESC, GS, FS = b'\x1b', b'\x1d', b'\x1c'
-INIT = ESC + b'@'
+INIT = ESC + b'@' + ESC + b'R\x00'  # ESC @ restores the Chinese model's 'China' character set, which prints $ as ¥; ESC R 0 = USA
 CUT = b'\n' * 4 + GS + b'VB\x00'  # feed to the cutter and cut (autocutter models)
 LEFT, CENTER, RIGHT = ESC + b'a\x00', ESC + b'a\x01', ESC + b'a\x02'
 BAYER = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]]

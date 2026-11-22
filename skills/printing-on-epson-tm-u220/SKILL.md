@@ -78,6 +78,7 @@ Text styles, red and `inline()` swatches all flip with the mode. Use a full-widt
 
 - **Chinese characters instead of an image**: the printer didn't understand the image command (usually `GS v 0`) and printed the bytes as text in its GB18030 font.
 - **Accented text prints as Chinese**: Chinese models start in Kanji mode. A byte above 0x7F swallows the next byte as well (`caf\x82 ok` printed `cafok`). Send `FS .` (`1C 2E`) first.
+- **`$` prints as `¥`**: `ESC @` puts Chinese models on the China character set. Send `ESC R 0` (USA) after it; `INIT` does.
 - **"Black" prints red, "red" barely prints**: the ribbon cassette isn't pushed fully in.
 - **First connection times out**: the printer is still starting up. `send()` retries for ~10 s.
 - **Data cut short**: closing the socket immediately after `sendall`. `send()` waits 2 s.
